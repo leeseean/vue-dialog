@@ -10,19 +10,19 @@ import vue-dialog from 'vue-dialog'
 
 # 配置项
 title: {
-    type: String
+    type: String,
     default：'标题'
 }
 skin: {
-    type: String
+    type: String,
     default：''
 }
 width: {
-    type: String
+    type: Number,
     default：'auto'
 }
 height: {
-    type: String
+    type: Number,
     default：'auto'
 }
 button: {
