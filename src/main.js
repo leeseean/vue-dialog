@@ -10,29 +10,40 @@ new Vue({
   el: '#app',
   components: { VueDialog },
   template: `
-    <vue-dialog @show="dialogShowCb" @confirm="confirmCallback" :cancel="cancelCallback" :is-mask="isMask" :dialog-width="dialogWidth" :dialog-height="dialogHeight" :title="title" :confirm-btn-id="confirmBtnId" :confirm-btn-value="confirmBtnValue" :cancel-btn-id="cancelBtnId" :cancel-btn-value="cancelBtnValue">
+    <vue-dialog @show="dialogShowCb" @confirm="confirmCallback" @cancel="cancelCallback" :is-dialog="isDialog" :is-mask="isMask" :is-cancel-btn="isCancelBtn" :is-confirm-btn="isConfirmBtn" :dialog-width="dialogWidth" :dialog-height="dialogHeight" :title="title" :confirm-btn-id="confirmBtnId" :confirm-btn-value="confirmBtnValue" :cancel-btn-id="cancelBtnId" :cancel-btn-value="cancelBtnValue">
       <input v-model="inputValue">
     </vue-dialog>`,
   data: {
+    isDialog: true,
     isMask: true,
     inputValue: 5,
     title: '大话西游',
+    isConfirmBtn: true,
     confirmBtnId: '123',
     confirmBtnValue: '缺额',
+    isCancelBtn: true,
     cancelBtnId: '456',
     cancelBtnValue: '消失',
-    dialogHeight: '100px',
-    dialogWidth: '100px'
+    dialogHeight: 'auto',
+    dialogWidth: '300px'
+  },
+  watch: {
+    isDialog: {
+      handler(newVal, oldVal) {
+        this.dialogShowCb();
+      },
+      immediate: true
+    }
   },
   methods: {
     dialogShowCb() {
       console.log('show')
     },
     confirmCallback() {
-      console.log('confirm')
+      this.inputValue++;
     },
     cancelCallback() {
-      console.log('cancel')
+      this.isDialog = false;
     }
   }
 }) 
