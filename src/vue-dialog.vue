@@ -68,8 +68,6 @@
 
 <style scoped>
 
-  @import "../asserts/css/reset.css";
-
   .mask {
     opacity: 0.7;
     background: rgb(0, 0, 0);
