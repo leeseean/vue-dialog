@@ -44,23 +44,13 @@
       cancelBtnId: [String, Number],
       cancelBtnValue: [String, Number],
     },
-    data() {
-      return {};
-    },
-    mounted() {},
     methods: {
-      show() {
-        this.$emit('show', 'show')
-      },
       confirm() {
-        this.$emit('confirm', 'confirm')
+        this.$emit('confirm')
       },
       cancel() {
-        this.$emit('cancel', 'cancel')
+        this.$emit('cancel')
       }
-    },
-    destroyed() {
-      this.cancel();
     }
   }
 
@@ -82,6 +72,7 @@
   }
 
   .wrapper {
+    min-width: 120px;
     position: absolute;
     background-color: #fff;
     border: 1px solid #999;
@@ -125,7 +116,7 @@
   }
 
   .content {
-    padding: 10px 20px;
+    padding: 35px 20px 25px 20px;
   }
 
   .buttons {
