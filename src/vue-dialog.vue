@@ -68,7 +68,7 @@
     height: 100%;
     overflow: hidden;
     user-select: none;
-    z-index: -1;
+    z-index: 1000;
   }
 
   .wrapper {
