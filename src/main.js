@@ -8,27 +8,32 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  components: { VueDialog },
+  components: {
+    VueDialog
+  },
   template: `
-    <vue-dialog @show="dialogShowCb" @confirm="confirmCallback" @cancel="cancelCallback" :is-dialog="isDialog" :is-mask="isMask" :is-cancel-btn="isCancelBtn" :is-confirm-btn="isConfirmBtn" :dialog-width="dialogWidth" :dialog-height="dialogHeight" :title="title" :confirm-btn-id="confirmBtnId" :confirm-btn-value="confirmBtnValue" :cancel-btn-id="cancelBtnId" :cancel-btn-value="cancelBtnValue">
+    <vue-dialog @show="dialogShowCb" @confirm="confirmCallback" @cancel="cancelCallback" :is-dialog="dialogConfig.isDialog" :is-mask="dialogConfig.isMask" :is-cancel-btn="dialogConfig.isCancelBtn" :is-confirm-btn="dialogConfig.isConfirmBtn" :dialog-width="dialogConfig.dialogWidth" :dialog-height="dialogConfig.dialogHeight" :title="dialogConfig.title" :confirm-btn-id="dialogConfig.confirmBtnId" :confirm-btn-value="dialogConfig.confirmBtnValue" :cancel-btn-id="dialogConfig.cancelBtnId" :cancel-btn-value="dialogConfig.cancelBtnValue">
       <input v-model="inputValue">
     </vue-dialog>`,
   data: {
-    isDialog: true,
-    isMask: true,
     inputValue: 5,
-    title: '大话西游',
-    isConfirmBtn: true,
-    confirmBtnId: '123',
-    confirmBtnValue: '缺额',
-    isCancelBtn: true,
-    cancelBtnId: '456',
-    cancelBtnValue: '消失',
-    dialogHeight: 'auto',
-    dialogWidth: '300px'
+    dialogConfig: {
+      skin: '',
+      isDialog: true,
+      isMask: true,
+      title: '大话西游',
+      isConfirmBtn: true,
+      confirmBtnId: '123',
+      confirmBtnValue: '缺额',
+      isCancelBtn: true,
+      cancelBtnId: '456',
+      cancelBtnValue: '消失',
+      dialogHeight: 'auto',
+      dialogWidth: '300px'
+    },
   },
   watch: {
-    isDialog: {
+    'dialogConfig.isDialog': {
       handler(newVal, oldVal) {
         this.dialogShowCb();
       },
@@ -46,4 +51,4 @@ new Vue({
       this.isDialog = false;
     }
   }
-}) 
+})

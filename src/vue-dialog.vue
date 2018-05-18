@@ -36,8 +36,8 @@
         default: true
       },
       skin: String,
-      dialogWidth: [String, Number],
-      dialogHeight: [String, Number],
+      dialogWidth: [String],
+      dialogHeight: [String],
       title: [String, Number],
       confirmBtnId: [String, Number],
       confirmBtnValue: [String, Number],
