@@ -19,22 +19,10 @@
   export default {
     name: 'vue-dialog',
     props: {
-      isDialog: { //是否显示对话框
-        type: Boolean,
-        default: true
-      },
-      isMask: { //是否显示遮罩层
-        type: Boolean,
-        default: true
-      },
-      isConfirmBtn: { //是否显示确认按钮
-        type: Boolean,
-        default: true
-      },
-      isCancelBtn: { //是否显示取消按钮
-        type: Boolean,
-        default: true
-      },
+      isDialog: [String, Boolean], //是否显示对话框
+      isMask: [String, Boolean], //是否显示遮罩层
+      isConfirmBtn: [String, Boolean], //是否显示确认按钮
+      isCancelBtn: [String, Boolean], //是否显示取消按钮
       skin: String,
       dialogWidth: [String],
       dialogHeight: [String],
