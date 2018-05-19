@@ -1,13 +1,10 @@
 #
-vue - app
+vue - dialog
 
   >
   vue - dialog 对话框插件
 
 ## 使用方法
-
-  ``
-` bash
 # 引入
 import VueDialog from './vue-dialog'
 
@@ -41,6 +38,4 @@ import VueDialog from './vue-dialog'
       弹窗关闭事件，在组件上用 @cancel 接收
       弹窗确认按钮事件，在组件上用 @confirm 接收      
 `
-``
-
 For a detailed explanation on how things work, check out the[guide](http: //vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
