@@ -8,6 +8,8 @@ vue - app
 
   ``
 ` bash
+#下载
+npm install view-dialog
 # 引入
 import VueDialog from './vue-dialog'
 
