@@ -1,15 +1,12 @@
 <template>
   <div v-if="isDialog">
     <div class="mask" v-if="isMask"></div>
-    <div class="wrapper" :class="{skin: skin}" :style="{width: dialogWidth, height: dialogHeight}">
-      <div class="close" @click="cancel">x</div>
+    <div class="wrapper" :class="{skin: skin}" :style="{width, height, 'z-index': zIndex}">
+      <div class="close" @click="closeCb">x</div>
       <div class="title" v-if="title">{{title}}</div>
-      <div class="content">
-        <slot></slot>
-      </div>
-      <div class="buttons" v-if="isConfirmBtn || isCancelBtn">
-        <div v-if="isConfirmBtn" class="button-confirm" :button-id="confirmBtnId" @click="confirm">{{confirmBtnValue}}</div>
-        <div v-if="isCancelBtn" class="button-cancel" :button-id="cancelBtnId" @click="cancel">{{cancelBtnValue}}</div>
+      <div class="content" v-html="content"></div>
+      <div class="buttons" v-if="button.length>0">
+        <div v-for="(item,index) in button" :key="index" :button-id="item.id" @click="clickCb(item.callback)" class="button-dialog">{{item.value}}</div>
       </div>
     </div>
   </div>
@@ -21,23 +18,33 @@
     props: {
       isDialog: [String, Boolean], //是否显示对话框
       isMask: [String, Boolean], //是否显示遮罩层
-      isConfirmBtn: [String, Boolean], //是否显示确认按钮
-      isCancelBtn: [String, Boolean], //是否显示取消按钮
       skin: String,
-      dialogWidth: [String],
-      dialogHeight: [String],
+      width: [String, Number],
+      height: [String, Number],
+      zIndex: [String, Number],
       title: [String, Number],
-      confirmBtnId: [String, Number],
-      confirmBtnValue: [String, Number],
-      cancelBtnId: [String, Number],
-      cancelBtnValue: [String, Number],
+      button: Array,
+      onShow: Function,
+      onClose: Function
+    },
+    watch: {
+      'isDialog': {
+        handler(newVal, oldVal) {
+          if (newVal) {
+            this.onShow()
+          } else {
+            this.onClose()            
+          }
+        },
+        immediate: false
+      }
     },
     methods: {
-      confirm() {
-        this.$emit('confirm')
+      closeCb() {
+        this.isDialog = false
       },
-      cancel() {
-        this.$emit('cancel')
+      clickCb(cb) {
+        cb.call(this)
       }
     }
   }
@@ -45,7 +52,6 @@
 </script>
 
 <style scoped>
-
   .mask {
     opacity: 0.7;
     background: rgb(0, 0, 0);
@@ -113,8 +119,7 @@
     text-align: center;
   }
 
-  .button-confirm,
-  .button-cancel {
+  .button-dialog {
     display: inline-block;
     text-align: center;
     padding: 2px 12px;

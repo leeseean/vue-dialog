@@ -6,9 +6,7 @@ export default {
   install(Vue, options) {
     if (!$vm) {
       const DialogPlugin = Vue.extend(VueDialog)
-      $vm = new DialogPlugin({
-        el: document.createElement('div')
-      })
+      $vm = new DialogPlugin().$mount()
     }
     $vm.isDialog = false
     const dialog = (config) => {
@@ -16,13 +14,22 @@ export default {
         show() {
           $vm.isDialog = true
           $vm.title = config.title          
+          $vm.skin = config.skin          
+          $vm.isMask = config.isMask          
+          $vm.width = config.width || 'auto'         
+          $vm.height = config.height || 'auto'                 
+          $vm.zIndex = config.zIndex || '1024'                           
           $vm.content = config.content
+          $vm.button = config.button
+          $vm.onShow = config.onShow
+          $vm.onClose = config.onClose          
           document.body.appendChild($vm.$el)
-          config.onShow && config.onShow.call($vm)
         },
-        hide() {
+        close() {
           $vm.isDialog = false
-          config.onHide &&  config.onHide.call($vm)
+        },
+        remove() {
+            $vm.$destroy();
         }
       }
     }
