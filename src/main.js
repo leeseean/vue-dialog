@@ -34,8 +34,8 @@ new Vue({
       skin: 'blue',
       content: `<p style="text-align:center">你好</p>`,
       isDialog: false,
-      isMask: false,
-      title: '标题标题标题标题',
+      isMask: true,
+      title: '3',
       height: 'auto',
       width: 'auto',
       zIndex: 1024,
@@ -43,9 +43,8 @@ new Vue({
         {
           value: '同意',
           callback() {
-            this
-            .content('你同意了')
-            return false;
+            this.content = `<p style="text-align:center">您同意了</p>`
+            return false
           },
           autofocus: true
         },

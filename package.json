@@ -1,7 +1,7 @@
 {
-  "name": "vue-art-dialog",
+  "name": "art-dialog-vue",
   "version": "1.0.1",
-  "description": "基于vue的弹框组件",
+  "description": "基于vue的弹框插件",
   "author": "leeseean",
   "private": false,
   "scripts": {

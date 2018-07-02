@@ -1,7 +1,7 @@
 <template>
-  <div v-if="isDialog">
+  <div v-if="isDialog" class="dialog-wrpper" :style="{'z-index': zIndex}">
     <div class="mask" v-if="isMask"></div>
-    <div class="wrapper" :class="{skin: skin}" :style="{width, height, 'z-index': zIndex}">
+    <div class="wrapper" :class="{skin: skin}" :style="{width, height}">
       <div class="close" @click="closeCb">x</div>
       <div class="title" v-if="title">{{title}}</div>
       <div class="content" v-html="content"></div>
@@ -23,9 +23,11 @@
       height: [String, Number],
       zIndex: [String, Number],
       title: [String, Number],
+      content: String,
       button: Array,
       onShow: Function,
-      onClose: Function
+      onClose: Function,
+      
     },
     watch: {
       'isDialog': {
@@ -33,18 +35,22 @@
           if (newVal) {
             this.onShow()
           } else {
-            this.onClose()            
+            this.onClose()
           }
         },
         immediate: false
-      }
+      },
     },
     methods: {
       closeCb() {
         this.isDialog = false
       },
-      clickCb(cb) {
-        cb.call(this)
+      clickCb(cb = () => {}) {
+        const flag = cb.call(this) //按钮回调函数返回 false 则不许关闭
+        if (flag === false) {
+          return
+        }
+        this.isDialog = false
       }
     }
   }
@@ -52,6 +58,13 @@
 </script>
 
 <style scoped>
+  .dialog-wrpper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+  }
   .mask {
     opacity: 0.7;
     background: rgb(0, 0, 0);
@@ -62,7 +75,7 @@
     height: 100%;
     overflow: hidden;
     user-select: none;
-    z-index: 1000;
+    z-index: -1;
   }
 
   .wrapper {
@@ -82,16 +95,18 @@
 
   .close {
     position: absolute;
-    right: 10px;
-    top: 4px;
+    right: 6px;
+    top: 6px;
     cursor: pointer;
     text-decoration: none;
     outline: 0;
-    color: #000;
-    opacity: 0.2;
-    text-shadow: 0 1px 0 #fff;
+    padding: 0 4px;
     font-size: 21px;
     font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
   }
 
   .close:hover {
@@ -110,7 +125,7 @@
   }
 
   .content {
-    padding: 35px 20px 25px 20px;
+    padding: 25px 20px 25px 20px;
   }
 
   .buttons {
@@ -122,14 +137,26 @@
   .button-dialog {
     display: inline-block;
     text-align: center;
-    padding: 2px 12px;
+    padding: 6px 12px;
     white-space: nowrap;
     border: 1px solid transparent;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
     border-radius: 4px;
-    margin: 0 10px;
+    color: #fff;
+    background-color: #428bca;
+    border-color: #357ebd;
+    margin-left: 10px;    
+  }
+
+  .button-dialog:last-child {
+    margin-right: 10px;
+  }
+
+  .button-dialog:hover {
+    background-color: #3276b1;
+    border-color: #285e8e;
   }
 
   .button-confirm {
