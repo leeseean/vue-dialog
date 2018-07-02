@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import VueDialog from './vue-dialog'
+import VueDialog from './components/vue-dialog'
 
 Vue.config.productionTip = false
 
