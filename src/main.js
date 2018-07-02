@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import Dialog from './assets/js/vendor/dialog'
+import Dialog from '../asserts/js/vendor/dialog'
 
 Vue.use(Dialog)
 Vue.config.productionTip = false
@@ -11,7 +11,7 @@ new Vue({
   el: '#app',
   template: `
     <div>
-      <div style="margin:autowidth:280pxline-height:2transform: translateY(30%)">
+      <div style="margin:auto;width:280px;line-height:2;transform: translateY(30%)">
         <h6>对话框配置</h6>
         <p>皮肤：<input type="text" v-model="dialogConfig.skin"/></p>
         <p>是否显示遮罩层：<input type="radio" value="是" v-model="dialogConfig.isMask"/>是<input type="radio" value="" v-model="dialogConfig.isMask"/>否</p>
@@ -32,7 +32,7 @@ new Vue({
     inputValue: 5,
     dialogConfig: {
       skin: 'blue',
-      content: `<p style="text-align:center">你好</p>`,
+      content: `<p style="text-align:center">你好{{inputValue}}</p>`,
       isDialog: false,
       isMask: true,
       title: '3',
@@ -63,13 +63,16 @@ new Vue({
           value: '关闭我'
         }
       ],
+      statusbar: `
+        <label for="checkbox"><input type="checkbox" id="checkbox" v-model="checked">不再提醒</label>
+      `,
       onShow() {},
       onClose() {}
     },
   },
   methods: {
     showDialog(config) {
-      this.$dialog(config).show()
+      this.$dialog(config, this).show()
     }
   }
 })

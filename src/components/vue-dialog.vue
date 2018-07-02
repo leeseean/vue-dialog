@@ -1,18 +1,22 @@
 <template>
-  <div v-if="isDialog" class="dialog-wrpper" :style="{'z-index': zIndex}">
-    <div class="mask" v-if="isMask"></div>
-    <div class="wrapper" :class="{skin: skin}" :style="{width, height}">
-      <div class="close" @click="closeCb">x</div>
-      <div class="title" v-if="title">{{title}}</div>
-      <div class="content" v-html="content"></div>
-      <div class="buttons" v-if="button.length>0">
-        <div v-for="(item,index) in button" :key="index" :button-id="item.id" @click="clickCb(item.callback)" class="button-dialog">{{item.value}}</div>
+  <div v-if="isDialog" class="dialog-outter-wrapper" :style="{'z-index': zIndex}">
+    <div class="dialog-mask" v-if="isMask"></div>
+    <div class="dialog-wrapper" :class="{skin: skin}" :style="{width, height}">
+      <div class="dialog-close" @click="closeCb">x</div>
+      <div class="dialog-title" v-if="title">{{title}}</div>
+      <div class="dialog-content" ref="content"></div>
+      <div class="clearfix dialog-footer">
+        <div class="fl dialog-statusbar" v-html="statusbar"></div>
+        <div class="fr dialog-buttons" v-if="button.length>0">
+          <div v-for="(item,index) in button" :key="index" :button-id="item.id" @click="clickCb(item.callback)" class="dialog-button">{{item.value}}</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import Vue from 'vue'
   export default {
     name: 'vue-dialog',
     props: {
@@ -27,7 +31,7 @@
       button: Array,
       onShow: Function,
       onClose: Function,
-      
+      statusbar: String,
     },
     watch: {
       'isDialog': {
@@ -52,20 +56,25 @@
         }
         this.isDialog = false
       }
+    },
+    mounted() {
+     
     }
   }
 
 </script>
 
 <style scoped>
-  .dialog-wrpper {
+  @import '../../asserts/css/reset.css';
+  .dialog-outter-wrapper {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     top: 0;
   }
-  .mask {
+
+  .dialog-mask {
     opacity: 0.7;
     background: rgb(0, 0, 0);
     position: fixed;
@@ -78,7 +87,7 @@
     z-index: -1;
   }
 
-  .wrapper {
+  .dialog-wrapper {
     min-width: 120px;
     position: absolute;
     background-color: #fff;
@@ -93,7 +102,7 @@
     box-sizing: border-box;
   }
 
-  .close {
+  .dialog-close {
     position: absolute;
     right: 6px;
     top: 6px;
@@ -109,11 +118,11 @@
     opacity: .2;
   }
 
-  .close:hover {
+  .dialog-close:hover {
     opacity: .5;
   }
 
-  .title {
+  .dialog-title {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -124,17 +133,27 @@
     padding: 12px 0 16px 0;
   }
 
-  .content {
+  .dialog-content {
     padding: 25px 20px 25px 20px;
   }
 
-  .buttons {
+  .dialog-buttons {
     font-size: 0;
     padding-bottom: 12px;
     text-align: center;
   }
 
-  .button-dialog {
+  .dialog-statusbar {
+    text-align: center;
+    padding: 6px 12px;
+    white-space: nowrap;
+  }
+
+  .dialog-statusbar input {
+    vertical-align: middle;
+  }
+
+  .dialog-button {
     display: inline-block;
     text-align: center;
     padding: 6px 12px;
@@ -147,14 +166,14 @@
     color: #fff;
     background-color: #428bca;
     border-color: #357ebd;
-    margin-left: 10px;    
+    margin-left: 10px;
   }
 
-  .button-dialog:last-child {
+  .dialog-button:last-child {
     margin-right: 10px;
   }
 
-  .button-dialog:hover {
+  .dialog-button:hover {
     background-color: #3276b1;
     border-color: #285e8e;
   }
