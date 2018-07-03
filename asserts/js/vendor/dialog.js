@@ -9,7 +9,7 @@ export default {
       $vm = new DialogPlugin().$mount()
     }
     $vm.isDialog = false
-    const dialog = (config, triggerVm) => {
+    const dialog = (config) => {
       return {
         show() {
           $vm.isDialog = true
@@ -19,28 +19,38 @@ export default {
           $vm.width = config.width || 'auto'
           $vm.height = config.height || 'auto'
           $vm.zIndex = config.zIndex || '1024'
-          $vm.content = config.content
           $vm.button = config.button
-          $vm.statusbar = config.statusbar
           $vm.onShow = config.onShow
           $vm.onClose = config.onClose
           document.body.appendChild($vm.$el)
-          const Content = Vue.extend({
-            template: $vm.content,
-            data() {
-              return triggerVm.$data
-            }
-          })
-          const _content = new Content().$mount()
+          const Content = Vue.extend(config.content)
+          $vm.content = new Content().$mount()
+          const Statusbar = Vue.extend(config.statusbar);
+          $vm.statusbar = new Statusbar().$mount()
           $vm.$nextTick(() => {
-            $vm.$refs.content.appendChild(_content.$el)
+            $vm.$refs.content.appendChild($vm.content.$el)
+            $vm.$refs.statusbar.appendChild($vm.statusbar.$el)            
           })
+          return this
         },
         close() {
           $vm.isDialog = false
+          return this
         },
         remove() {
-          $vm.$destroy();
+          $vm.$destroy()
+          return this
+        },
+        content(contentObj) {
+          const $oldEl = $vm.content.$el
+          $vm.content.$destroy()
+          const Content = Vue.extend(contentObj)
+          $vm.content = new Content().$mount()
+          $vm.$nextTick(() => {
+            $vm.$refs.content.removeChild($oldEl)
+            $vm.$refs.content.appendChild($vm.content.$el)
+          })
+          return this
         }
       }
     }

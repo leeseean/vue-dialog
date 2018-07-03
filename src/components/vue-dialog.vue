@@ -6,7 +6,7 @@
       <div class="dialog-title" v-if="title">{{title}}</div>
       <div class="dialog-content" ref="content"></div>
       <div class="clearfix dialog-footer">
-        <div class="fl dialog-statusbar" v-html="statusbar"></div>
+        <div class="fl dialog-statusbar" ref="statusbar"></div>
         <div class="fr dialog-buttons" v-if="button.length>0">
           <div v-for="(item,index) in button" :key="index" :button-id="item.id" @click="clickCb(item.callback)" class="dialog-button">{{item.value}}</div>
         </div>
