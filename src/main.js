@@ -26,6 +26,8 @@ new Vue({
       const _this = this;
       const _dialog = _this.$dialog({
         skin: 'blue',
+        fixed: true,
+        quickClose: true,
         isDialog: false,
         isMask: true,
         title: '3',

@@ -15,6 +15,8 @@ export default {
           $vm.isDialog = true
           $vm.title = config.title
           $vm.skin = config.skin
+          $vm.fixed = config.fixed    
+          $vm.quickClose = config.quickClose      
           $vm.isMask = config.isMask
           $vm.width = config.width || 'auto'
           $vm.height = config.height || 'auto'

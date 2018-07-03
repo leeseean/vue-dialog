@@ -1,7 +1,7 @@
 <template>
   <div v-if="isDialog" class="dialog-outter-wrapper" :style="{'z-index': zIndex}">
     <div class="dialog-mask" v-if="isMask"></div>
-    <div class="dialog-wrapper" :class="{skin: skin}" :style="{width, height}">
+    <div class="dialog-wrapper" :class="{skin: skin}" :style="{width, height, position: fixed ? 'fixed' : 'absolute'}" ref="dialogWrapper">
       <div class="dialog-close" @click="closeCb">x</div>
       <div class="dialog-title" v-if="title">{{title}}</div>
       <div class="dialog-content" ref="content"></div>
@@ -16,12 +16,13 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   export default {
     name: 'vue-dialog',
     props: {
       isDialog: [String, Boolean], //是否显示对话框
       isMask: [String, Boolean], //是否显示遮罩层
+      fixed: Boolean,
+      quickClose: Boolean,
       skin: String,
       width: [String, Number],
       height: [String, Number],
@@ -38,8 +39,10 @@
         handler(newVal, oldVal) {
           if (newVal) {
             this.onShow()
+            document.body.addEventListener('click', this.quickCloseCb)
           } else {
             this.onClose()
+            document.body.removeEventListener('click', this.quickCloseCb)
           }
         },
         immediate: false
@@ -55,16 +58,25 @@
           return
         }
         this.isDialog = false
+      },
+      quickCloseCb(event) {
+        const _this = this;
+        const targetObj = event.target || event.srcElement
+        const dialogWrapper = _this.$refs.dialogWrapper
+        console.log(targetObj, dialogWrapper.contains(targetObj))
+        if (targetObj !== dialogWrapper && !dialogWrapper.contains(targetObj) && _this.quickClose) {
+          _this.isDialog = false
+        }
       }
     },
     mounted() {
-     
+
     }
   }
 
 </script>
 
-<style scoped>
+<style>
   @import '../../asserts/css/reset.css';
   .dialog-outter-wrapper {
     position: absolute;
