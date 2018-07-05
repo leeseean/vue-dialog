@@ -6,11 +6,12 @@
       <div class="dialog-title" v-if="title">{{title}}</div>
       <div class="dialog-content" ref="content"></div>
       <div class="clearfix dialog-footer">
-        <div class="fl dialog-statusbar" ref="statusbar"></div>
+        <div class="fl dialog-statusbar" v-if="statusbar" ref="statusbar"></div>
         <div class="fr dialog-buttons" v-if="button.length>0">
           <div v-for="(item,index) in button" :key="index" :button-id="item.id" @click="clickCb(item.callback)" class="dialog-button">{{item.value}}</div>
         </div>
       </div>
+      <div class="dialog-anchor-arrow" :align="align"></div>
     </div>
   </div>
 </template>
@@ -19,19 +20,20 @@
   export default {
     name: 'vue-dialog',
     props: {
-      id: [String, Number],  
-      closeIcon: Boolean,    
+      id: [String, Number],
+      closeIcon: Boolean,
       isDialog: [String, Boolean], //是否显示对话框
       isMask: [String, Boolean], //是否显示遮罩层
       fixed: Boolean,
       quickClose: Boolean,
+      align: String,
       skin: String,
       width: [String, Number],
       height: [String, Number],
       zIndex: [String, Number],
       title: [String, Number],
-      content: String,
-      statusbar: String,
+      content: Object,
+      statusbar: Object,
       button: Array,
       onShow: Function,
       onClose: Function,
@@ -213,6 +215,112 @@
   .button-confirm:hover {
     background-color: #3276b1;
     border-color: #285e8e;
+  }
+
+  .dialog-anchor-arrow {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    border: 1px solid #999;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+
+  .dialog-anchor-arrow[align="top left"] {
+    left: 15px;
+    bottom: -8px;
+    transform: rotate(45deg);
+    border-left: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="top right"] {
+    right: 15px;
+    bottom: -8px;
+    transform: rotate(45deg);
+    border-left: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="top"] {
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    bottom: -8px;
+    border-left: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="right top"] {
+    top: 15px;
+    left: -8px;
+    transform: rotate(45deg);
+    border-right: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="right"] {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    left: -8px;
+    border-right: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="right bottom"] {
+    bottom: 15px;
+    left: -8px;
+    transform: rotate(45deg);
+    border-right: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="bottom left"] {
+    left: 15px;
+    top: -8px;
+    transform: rotate(45deg);
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="bottom right"] {
+    right: 15px;
+    top: -8px;
+    transform: rotate(45deg);
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="bottom"] {
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    top: -8px;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="left top"] {
+    top: 15px;
+    right: -8px;
+    transform: rotate(45deg);
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="left"] {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    right: -8px;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+  }
+
+  .dialog-anchor-arrow[align="left bottom"] {
+    bottom: 15px;
+    right: -8px;
+    transform: rotate(45deg);
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
   }
 
 </style>

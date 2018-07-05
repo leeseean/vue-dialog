@@ -1,4 +1,9 @@
 import VueDialog from '../../../src/components/vue-dialog'
+import {
+  noop,
+  setStyle,
+  offsetDis
+} from './utils'
 
 let $vm
 
@@ -11,31 +16,65 @@ export default {
     $vm.isDialog = false
     const dialog = (config) => {
       return {
-        show() {
-          $vm.isDialog = true
-          $vm.id = config.id       
+        show(anchor) {
+          $vm.id = config.id
           $vm.closeIcon = config.closeIcon === false ? false : true
           $vm.title = config.title
-          $vm.skin = config.skin
-          $vm.fixed = config.fixed    
-          $vm.quickClose = config.quickClose      
-          $vm.isMask = config.isMask
+          $vm.skin = config.skin || ''
+          $vm.fixed = config.fixed || false
+          $vm.align = config.align || 'top left'
+          $vm.quickClose = config.quickClose || false
+          $vm.isMask = config.isMask || false
           $vm.width = config.width || 'auto'
           $vm.height = config.height || 'auto'
           $vm.zIndex = config.zIndex || '1024'
-          $vm.button = config.button
+          $vm.button = config.button || []
           $vm.onShow = config.onShow || noop
           $vm.onClose = config.onClose || noop
           $vm.onBeforeDestroy = config.onBeforeDestroy || noop
           $vm.onDestroy = config.onDestroy || noop
           document.body.appendChild($vm.$el)
-          const Content = Vue.extend(config.content)
-          $vm.content = new Content().$mount()
-          const Statusbar = Vue.extend(config.statusbar)
-          $vm.statusbar = new Statusbar().$mount()
+          $vm.isDialog = true          
           $vm.$nextTick(() => {
+            const Content = Vue.extend(config.content || {
+              template: '<div></div>'
+            })
+            $vm.content = new Content().$mount()
             $vm.$refs.content.appendChild($vm.content.$el)
-            $vm.$refs.statusbar.appendChild($vm.statusbar.$el)        
+            if (config.statusbar) {
+              const Statusbar = Vue.extend(config.statusbar)
+              $vm.statusbar = new Statusbar().$mount()
+              $vm.$refs.statusbar.appendChild($vm.statusbar.$el)
+            }
+            if (anchor) { //定位到锚点元素
+              $vm.fixed = false
+              const anchorLeft = offsetDis(anchor).left
+              const anchorTop = offsetDis(anchor).top
+              const anchorWidth = anchor.offsetWidth
+              const anchorHeight = anchor.offsetHeight
+              const dialogWidth = $vm.$refs.dialogWrapper.offsetWidth
+              const dialogHeight = $vm.$refs.dialogWrapper.offsetHeight
+              console.log(anchorTop,dialogHeight)
+              const alignObj = {
+                "top left": `translateX(${anchorLeft}px) translateY(${anchorTop-dialogHeight-10}px)`,
+                "top": `translateX(${anchorLeft+(anchorWidth-dialogWidth)/2}px) translateY(${anchorTop-dialogHeight-10}px)`,
+                "top right": `translateX(${anchorLeft+anchorWidth-dialogWidth}px) translateY(${anchorTop-dialogHeight-10}px)`,
+                "right top": `translateX(${anchorLeft+anchorWidth+10}px) translateY(${anchorTop}px)`,
+                "right": `translateX(${anchorLeft+anchorWidth+10}px) translateY(${anchorTop+(anchorHeight-dialogHeight)/2}px)`,
+                "right bottom": `translateX(${anchorLeft+anchorWidth+10}px) translateY(${anchorTop+anchorHeight-dialogHeight}px)`,
+                "bottom right": `translateX(${anchorLeft+anchorWidth-dialogWidth}px) translateY(${anchorTop+anchorHeight+10}px)`,
+                "bottom": `translateX(${anchorLeft+(anchorWidth-dialogWidth)/2}px) translateY(${anchorTop+anchorHeight+10}px)`,
+                "bottom left": `translateX(${anchorLeft}px) translateY(${anchorTop+anchorHeight+10}px)`,
+                "left bottom": `translateX(${anchorLeft-dialogWidth-10}px) translateY(${anchorTop+anchorHeight-dialogHeight}px)`,
+                "left": `translateX(${anchorLeft-dialogWidth-10}px) translateY(${anchorTop+anchorHeight-dialogHeight}px)`,
+                "left top": `translateX(${anchorLeft-dialogWidth-10}px) translateY(${anchorTop}px)`
+              }
+              setStyle($vm.$refs.dialogWrapper, {
+                left: 0,
+                top: 0,
+                transform: `${alignObj[$vm.align]}`
+              })
+            }
             $vm.onShow()
           })
           return this
@@ -46,7 +85,7 @@ export default {
           return this
         },
         remove() {
-          $vm.onBeforeDestroy()          
+          $vm.onBeforeDestroy()
           $vm.$destroy()
           $vm.onDestroy()
           return this
@@ -76,5 +115,3 @@ export default {
     })
   }
 }
-
-function noop() {}

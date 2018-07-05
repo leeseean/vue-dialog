@@ -11,10 +11,21 @@ new Vue({
   el: '#app',
   template: `
     <div>
-      <div style="margin:auto;width:280px;line-height:2;transform: translateY(30%)">
+      <div style="margin:auto;width:280px;text-align:center;line-height:2">
         <h6>对话框配置</h6>
-        
         <p style="text-align: center"><button @click="showDialog" style="cursor:pointer">打开对话框</button></p> 
+        <button @click="showAlign($event,'top left')">top left</button><br>
+        <button @click="showAlign($event,'top')">top</button><br>
+        <button @click="showAlign($event,'top right')">top right</button><br>
+        <button @click="showAlign($event,'right top')">right top</button><br>
+        <button @click="showAlign($event,'right')">right</button><br>
+        <button @click="showAlign($event,'right bottom')">right bottom</button><br>
+        <button @click="showAlign($event,'bottom right')">bottom right</button><br>
+        <button @click="showAlign($event,'bottom')">bottom</button><br>
+        <button @click="showAlign($event,'bottom left')">bottom left</button><br>
+        <button @click="showAlign($event,'left top')">left top</button><br>
+        <button @click="showAlign($event,'left')">left</button><br>
+        <button @click="showAlign($event,'left bottom')">left bottom</button><br>        
       </div>
     </div>
   `,
@@ -26,6 +37,7 @@ new Vue({
       const _this = this;
       const _dialog = _this.$dialog({
         id: 'sss',
+        align: 'right top',
         closeIcon: false,
         skin: 'blue',
         fixed: true,
@@ -83,6 +95,17 @@ new Vue({
         onBeforeDestroy() {},
         onDestroy() {}
       }).show()
+    },
+    showAlign(event, pos) {
+      const _this = this;      
+      const anchor = event.target || event.srcElement
+      console.log(anchor)
+      _this.$dialog({
+        align: pos,
+        content: {
+          template: '<div>局势</div>'
+        }
+      }).show(anchor)
     }
   }
 })
