@@ -26,8 +26,8 @@ export default {
           $vm.button = config.button
           $vm.onShow = config.onShow || noop
           $vm.onClose = config.onClose || noop
-          $vm.onBeforeRemove = config.onBeforeRemove || noop
-          $vm.onRemove = config.onRemove || noop
+          $vm.onBeforeDestroy = config.onBeforeDestroy || noop
+          $vm.onDestroy = config.onDestroy || noop
           document.body.appendChild($vm.$el)
           const Content = Vue.extend(config.content)
           $vm.content = new Content().$mount()
