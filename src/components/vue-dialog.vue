@@ -67,7 +67,6 @@
         const _this = this;
         const targetObj = event.target || event.srcElement
         const dialogWrapper = _this.$refs.dialogWrapper
-        console.log(targetObj, dialogWrapper.contains(targetObj))
         if (targetObj !== dialogWrapper && !dialogWrapper.contains(targetObj) && _this.quickClose) {
           _this.isDialog = false
         }
@@ -88,6 +87,7 @@
     right: 0;
     bottom: 0;
     top: 0;
+    pointer-events: none;
   }
 
   .dialog-mask {

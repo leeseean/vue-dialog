@@ -9,17 +9,15 @@ let $vm
 
 export default {
   install(Vue, options) {
-    if (!$vm) {
+    const dialog = (config) => {
       const DialogPlugin = Vue.extend(VueDialog)
       $vm = new DialogPlugin().$mount()
-    }
-    $vm.isDialog = false
-    const dialog = (config) => {
+      $vm.isDialog = false
       return {
         show(anchor) {
-          $vm.id = config.id
+          $vm.id = config.id || ''
           $vm.closeIcon = config.closeIcon === false ? false : true
-          $vm.title = config.title
+          $vm.title = config.title || ''
           $vm.skin = config.skin || ''
           $vm.fixed = config.fixed || false
           $vm.align = config.align || 'top left'
@@ -54,7 +52,6 @@ export default {
               const anchorHeight = anchor.offsetHeight
               const dialogWidth = $vm.$refs.dialogWrapper.offsetWidth
               const dialogHeight = $vm.$refs.dialogWrapper.offsetHeight
-              console.log(anchorTop,dialogHeight)
               const alignObj = {
                 "top left": `translateX(${anchorLeft}px) translateY(${anchorTop-dialogHeight-10}px)`,
                 "top": `translateX(${anchorLeft+(anchorWidth-dialogWidth)/2}px) translateY(${anchorTop-dialogHeight-10}px)`,

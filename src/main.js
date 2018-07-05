@@ -99,11 +99,10 @@ new Vue({
     showAlign(event, pos) {
       const _this = this;      
       const anchor = event.target || event.srcElement
-      console.log(anchor)
       _this.$dialog({
         align: pos,
         content: {
-          template: '<div>局势</div>'
+          template: '<div style="text-align:center">局势</div>'
         }
       }).show(anchor)
     }
