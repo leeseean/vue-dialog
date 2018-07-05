@@ -13,6 +13,8 @@ export default {
       return {
         show() {
           $vm.isDialog = true
+          $vm.id = config.id       
+          $vm.closeIcon = config.closeIcon === false ? false : true
           $vm.title = config.title
           $vm.skin = config.skin
           $vm.fixed = config.fixed    
@@ -22,25 +24,31 @@ export default {
           $vm.height = config.height || 'auto'
           $vm.zIndex = config.zIndex || '1024'
           $vm.button = config.button
-          $vm.onShow = config.onShow
-          $vm.onClose = config.onClose
+          $vm.onShow = config.onShow || noop
+          $vm.onClose = config.onClose || noop
+          $vm.onBeforeRemove = config.onBeforeRemove || noop
+          $vm.onRemove = config.onRemove || noop
           document.body.appendChild($vm.$el)
           const Content = Vue.extend(config.content)
           $vm.content = new Content().$mount()
-          const Statusbar = Vue.extend(config.statusbar);
+          const Statusbar = Vue.extend(config.statusbar)
           $vm.statusbar = new Statusbar().$mount()
           $vm.$nextTick(() => {
             $vm.$refs.content.appendChild($vm.content.$el)
-            $vm.$refs.statusbar.appendChild($vm.statusbar.$el)            
+            $vm.$refs.statusbar.appendChild($vm.statusbar.$el)        
+            $vm.onShow()
           })
           return this
         },
         close() {
           $vm.isDialog = false
+          $vm.onClose()
           return this
         },
         remove() {
+          $vm.onBeforeDestroy()          
           $vm.$destroy()
+          $vm.onDestroy()
           return this
         },
         content(contentObj) {
@@ -53,7 +61,8 @@ export default {
             $vm.$refs.content.appendChild($vm.content.$el)
           })
           return this
-        }
+        },
+        open: $vm.isDialog
       }
     }
     if (!Vue.$dialog) {
@@ -67,3 +76,5 @@ export default {
     })
   }
 }
+
+function noop() {}

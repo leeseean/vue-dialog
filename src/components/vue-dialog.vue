@@ -1,8 +1,8 @@
 <template>
-  <div v-if="isDialog" class="dialog-outter-wrapper" :style="{'z-index': zIndex}">
+  <div v-if="isDialog" class="dialog-outter-wrapper" :style="{'z-index': zIndex}" :dialog-id="id">
     <div class="dialog-mask" v-if="isMask"></div>
     <div class="dialog-wrapper" :class="{skin: skin}" :style="{width, height, position: fixed ? 'fixed' : 'absolute'}" ref="dialogWrapper">
-      <div class="dialog-close" @click="closeCb">x</div>
+      <div class="dialog-close" v-if="closeIcon" @click="closeCb">x</div>
       <div class="dialog-title" v-if="title">{{title}}</div>
       <div class="dialog-content" ref="content"></div>
       <div class="clearfix dialog-footer">
@@ -19,6 +19,8 @@
   export default {
     name: 'vue-dialog',
     props: {
+      id: [String, Number],  
+      closeIcon: Boolean,    
       isDialog: [String, Boolean], //是否显示对话框
       isMask: [String, Boolean], //是否显示遮罩层
       fixed: Boolean,
@@ -29,19 +31,19 @@
       zIndex: [String, Number],
       title: [String, Number],
       content: String,
+      statusbar: String,
       button: Array,
       onShow: Function,
       onClose: Function,
-      statusbar: String,
+      onBeforeDestroy: Function,
+      onDestroy: Function
     },
     watch: {
       'isDialog': {
         handler(newVal, oldVal) {
           if (newVal) {
-            this.onShow()
             document.body.addEventListener('click', this.quickCloseCb)
           } else {
-            this.onClose()
             document.body.removeEventListener('click', this.quickCloseCb)
           }
         },

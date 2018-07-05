@@ -25,6 +25,8 @@ new Vue({
     showDialog() {
       const _this = this;
       const _dialog = _this.$dialog({
+        id: 'sss',
+        closeIcon: false,
         skin: 'blue',
         fixed: true,
         quickClose: true,
@@ -77,7 +79,9 @@ new Vue({
           }
         },
         onShow() {},
-        onClose() {}
+        onClose() {},
+        onBeforeDestroy() {},
+        onDestroy() {}
       }).show()
     }
   }
