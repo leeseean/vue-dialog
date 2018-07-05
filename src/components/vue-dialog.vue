@@ -72,8 +72,11 @@
         }
       }
     },
-    mounted() {
-
+    beforeDestroy() {
+      this.onBeforeDestroy();
+    },
+    destroyed() {
+      this.onDestroy();
     }
   }
 
@@ -116,6 +119,7 @@
     transform: translateX(-50%) translateY(-50%);
     z-index: 1025;
     box-sizing: border-box;
+    pointer-events: all;
   }
 
   .dialog-close {

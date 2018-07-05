@@ -11,22 +11,61 @@ new Vue({
   el: '#app',
   template: `
     <div>
-      <div style="margin:auto;width:280px;text-align:center;line-height:2">
-        <h6>对话框配置</h6>
-        <p style="text-align: center"><button @click="showDialog" style="cursor:pointer">打开对话框</button></p> 
-        <button @click="showAlign($event,'top left')">top left</button><br>
-        <button @click="showAlign($event,'top')">top</button><br>
-        <button @click="showAlign($event,'top right')">top right</button><br>
-        <button @click="showAlign($event,'right top')">right top</button><br>
-        <button @click="showAlign($event,'right')">right</button><br>
-        <button @click="showAlign($event,'right bottom')">right bottom</button><br>
-        <button @click="showAlign($event,'bottom right')">bottom right</button><br>
-        <button @click="showAlign($event,'bottom')">bottom</button><br>
-        <button @click="showAlign($event,'bottom left')">bottom left</button><br>
-        <button @click="showAlign($event,'left top')">left top</button><br>
-        <button @click="showAlign($event,'left')">left</button><br>
-        <button @click="showAlign($event,'left bottom')">left bottom</button><br>        
-      </div>
+      <h1>art-dialog-vue</h1>
+      <h3>文档与示例</h3>
+      <p>artDialogVue —— 基于Vue.js框架的对话框插件</p>
+      <ol>
+        <li>支持普通与12方向气泡状对话框</li>
+        <li>支持标准与模态对话框</li>
+        <li>丰富且友好的编程接口</li>
+        <li>能自适应内容尺寸</li>
+      </ol>
+      <h1>文档导航</h1>
+      <hr/>
+      <ul>
+        <li>
+          <a href="">引入artDialogVue</a>
+        </li>
+        <li>
+          <a href="">快速参考</a>
+          <ul>
+            <li><a href="">普通对话框</a></li>
+            <li><a href="">模态对话框</a></li>
+            <li><a href="">气泡浮层</a></li>
+            <li><a href="">添加按钮</a></li>
+            <li><a href="">控制对话框关闭</a></li>
+            <li><a href="">不显示关闭按钮</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="">方法</a>
+          <ul>
+            <li><a href="">show([anchor])</a></li>
+            <li><a href="">close()</a></li>
+            <li><a href="">remove()</a></li>
+            <li><a href="">content(options)</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="">选项</a>
+          <ul>
+            <li>
+              内容
+              <ul>
+                <li><a href="">title</a></li>
+                <li><a href="">content</a></li>
+                <li><a href="">statusbar</a></li>
+              </ul>
+            </li>
+            <li>
+              按钮
+              <ul>
+                <li><a href="">button</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
   `,
   data: {
@@ -108,16 +147,3 @@ new Vue({
     }
   }
 })
-/* 
- <p>皮肤：<input type="text" v-model="dialogConfig.skin"/></p>
-        <p>是否显示遮罩层：<input type="radio" value="是" v-model="dialogConfig.isMask"/>是<input type="radio" value="" v-model="dialogConfig.isMask"/>否</p>
-        <p>标题：<input type="text" v-model="dialogConfig.title"/></p>
-        <p>是否显示确认按钮：<input type="radio" value="是" v-model="dialogConfig.isConfirmBtn"/>是<input type="radio" value="" v-model="dialogConfig.isConfirmBtn"/>否</p>
-        <p>是否显示取消按钮：<input type="radio" value="是" v-model="dialogConfig.isCancelBtn"/>是<input type="radio" value="" v-model="dialogConfig.isCancelBtn"/>否</p>
-        <p>确认按钮ID：<input type="text" v-model="dialogConfig.confirmBtnId"/></p>
-        <p>取消按钮ID：<input type="text" v-model="dialogConfig.cancelBtnId"/></p>
-        <p>确认按钮文字：<input type="text" v-model="dialogConfig.confirmBtnValue"/></p>
-        <p>取消按钮文字：<input type="text" v-model="dialogConfig.cancelBtnValue"/></p>
-        <p>弹框宽度：<input type="text" v-model="dialogConfig.dialogWidth"/></p>
-        <p>弹框高度：<input type="text" v-model="dialogConfig.dialogHeight"/></p>  
-*/

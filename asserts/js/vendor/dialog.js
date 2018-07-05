@@ -33,17 +33,17 @@ export default {
           $vm.onDestroy = config.onDestroy || noop
           document.body.appendChild($vm.$el)
           $vm.isDialog = true          
+          const Content = Vue.extend(config.content || {
+            template: '<div></div>'
+          })
+          $vm.content = new Content().$mount()
+          if (config.statusbar) {
+            const Statusbar = Vue.extend(config.statusbar)
+            $vm.statusbar = new Statusbar().$mount()
+          }
           $vm.$nextTick(() => {
-            const Content = Vue.extend(config.content || {
-              template: '<div></div>'
-            })
-            $vm.content = new Content().$mount()
             $vm.$refs.content.appendChild($vm.content.$el)
-            if (config.statusbar) {
-              const Statusbar = Vue.extend(config.statusbar)
-              $vm.statusbar = new Statusbar().$mount()
-              $vm.$refs.statusbar.appendChild($vm.statusbar.$el)
-            }
+            $vm.statusbar && $vm.$refs.statusbar.appendChild($vm.statusbar.$el)
             if (anchor) { //定位到锚点元素
               $vm.fixed = false
               const anchorLeft = offsetDis(anchor).left
@@ -81,10 +81,8 @@ export default {
           $vm.onClose()
           return this
         },
-        remove() {
-          $vm.onBeforeDestroy()
+        destroy() {
           $vm.$destroy()
-          $vm.onDestroy()
           return this
         },
         content(contentObj) {
