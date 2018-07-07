@@ -5,9 +5,9 @@
       <div class="dialog-close" v-if="closeIcon" @click="closeCb">x</div>
       <div class="dialog-title" v-if="title">{{title}}</div>
       <div class="dialog-content" ref="content"></div>
-      <div class="clearfix dialog-footer">
-        <div class="fl dialog-statusbar" v-if="statusbar" ref="statusbar"></div>
-        <div class="fr dialog-buttons" v-if="button.length>0">
+      <div class="dialog-footer">
+        <div class="dialog-statusbar" v-if="statusbar" ref="statusbar"></div>
+        <div class="dialog-buttons" v-if="button.length>0">
           <div v-for="(item,index) in button" :key="index" :button-id="item.id" @click="clickCb(item.callback)" class="dialog-button">{{item.value}}</div>
         </div>
       </div>
@@ -83,7 +83,6 @@
 </script>
 
 <style>
-  @import '../../asserts/css/reset.css';
   .dialog-outter-wrapper {
     position: absolute;
     left: 0;
@@ -157,13 +156,24 @@
     padding: 25px 20px 25px 20px;
   }
 
+  .dialog-footer::after {
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    content: "."
+  }
+
   .dialog-buttons {
+    float: right;
     font-size: 0;
     padding-bottom: 12px;
     text-align: center;
   }
 
   .dialog-statusbar {
+    float: left;
     text-align: center;
     padding: 6px 12px;
     white-space: nowrap;

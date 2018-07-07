@@ -99,13 +99,13 @@ export default {
         open: $vm.isDialog
       }
     }
-    if (!Vue.$dialog) {
-      Vue.$dialog = dialog
+    if (!Vue.dialog) {
+      Vue.dialog = dialog
     }
     // Vue.prototype.$dialog = Vue.$dialog
     Vue.mixin({
       created() {
-        this.$dialog = Vue.$dialog
+        this.$dialog = Vue.dialog
       }
     })
   }
