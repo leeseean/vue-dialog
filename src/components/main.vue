@@ -85,13 +85,35 @@
       </ol>
     </div>
     <div class="content">
-      <h1>基本用法</h1>
+      <h2>引入art-dialog-vue</h2>
+      <hr>
+      <p>1.安装</p>
       <pre>
-                    <code>
-                        const returnObj = Vue.dialog(config);
-                        returnObj.show([anchor]);
-                    </code>
-                </pre>
+          <code>
+              npm install --save-dev art-dialog-vue
+          </code>
+      </pre>
+      <p>2.直接引入</p>
+      <pre>
+          <code>
+              &lt;script src="dist/dialog.js"&gt;&lt;/script&gt;
+          </code>
+      </pre>
+      <p>3.模块化引入</p>
+      <pre>
+          <code>
+              import Dialog from 'art-dialog-vue' //esm
+              const Dialog = require('art-dialog-vue') //RequireJS 
+          </code>
+      </pre>
+      <h2>基本用法</h2>
+      <hr>
+      <pre>
+          <code>
+              const returnObj = Vue.dialog(config);
+              returnObj.show([anchor]);
+          </code>
+      </pre>
       <p>下面会就返回对象returnObj和config对象进行分别说明</p>
       <h2>returnObj</h2>
       <hr>
