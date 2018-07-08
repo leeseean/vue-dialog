@@ -29,7 +29,7 @@ module.exports = {
     app: './src/main.js'
   },
   output: {
-    path: config.build.assetsRoot,
+    path: config.dev.assetsRoot,
     filename: '[name].js',
     publicPath: _obj[process.env.NODE_ENV]
   },

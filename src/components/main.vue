@@ -97,6 +97,9 @@
       <pre>
           <code>
               &lt;script src="dist/dialog.js"&gt;&lt;/script&gt;
+              &lt;script&gt;
+                Vue.use(Dialog)//使用插件
+              &lt;/script&gt;
           </code>
       </pre>
       <p>3.模块化引入</p>
@@ -104,6 +107,7 @@
           <code>
               import Dialog from 'art-dialog-vue' //esm
               const Dialog = require('art-dialog-vue') //RequireJS 
+              Vue.use(Dialog)//使用插件
           </code>
       </pre>
       <h2>基本用法</h2>

@@ -25,7 +25,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: path.resolve(__dirname, '../plugin/dist/static'),
     filename: 'js/vue.dialog.js',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    library: 'Dialog'
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
