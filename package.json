@@ -3,6 +3,10 @@
   "version": "1.1.0",
   "description": "基于vue的弹框插件",
   "author": "leeseean",
+  "keywords": [
+    "vue dialog"
+  ],
+  "main": "./plugin/dist/static/js/vue.dialog.js",
   "private": false,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -84,5 +88,10 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "homepage": "https://leeseean.github.io/vue-dialog-API/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leeseean/vue-dialog"
+  }
 }
