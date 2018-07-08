@@ -90,15 +90,16 @@
       <p>1.安装</p>
       <pre>
           <code>
-              npm install --save-dev art-dialog-vue
+              npm install --save-dev art-dialog-vue //插件文件在plugin目录下
           </code>
       </pre>
       <p>2.直接引入</p>
       <pre>
           <code>
-              &lt;script src="dist/dialog.js"&gt;&lt;/script&gt;
+              &lt;script src="plugin/dist/static/css/dialog.min.css"&gt;&lt;/script&gt;
+              &lt;script src="plugin/dist/static/js/dialog.js"&gt;&lt;/script&gt;
               &lt;script&gt;
-                Vue.use(Dialog)//使用插件
+                Vue.use(Dialog.default)//使用插件,注意以url引入时use的参数是Dialog.default
               &lt;/script&gt;
           </code>
       </pre>
@@ -106,7 +107,7 @@
       <pre>
           <code>
               import Dialog from 'art-dialog-vue' //esm
-              const Dialog = require('art-dialog-vue') //RequireJS 
+              const Dialog = require('art-dialog-vue').default //RequireJS，非esm形式要加.default
               Vue.use(Dialog)//使用插件
           </code>
       </pre>
