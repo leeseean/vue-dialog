@@ -18,7 +18,11 @@ const createLintingRule = () => ({
     emitWarning: !config.dev.showEslintErrorsInOverlay
   }
 })
-
+const _obj = {
+  'production': config.build.assetsPublicPath,
+  'development': config.dev.assetsPublicPath,
+  'plugin': config.plugin.assetsPublicPath    
+}
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
@@ -27,9 +31,7 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath: _obj[process.env.NODE_ENV]
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
