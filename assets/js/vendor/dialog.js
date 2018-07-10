@@ -26,13 +26,18 @@ export default {
           $vm.width = config.width || 'auto'
           $vm.height = config.height || 'auto'
           $vm.zIndex = config.zIndex || '1024'
-          $vm.button = config.button || []
-          $vm.onShow = config.onShow || noop
-          $vm.onClose = config.onClose || noop
-          $vm.onBeforeDestroy = config.onBeforeDestroy || noop
-          $vm.onDestroy = config.onDestroy || noop
+          $vm.button = (config.button || []).map(item => {
+            if (item.callback) {
+              item.callback = item.callback.bind(this) 
+            }
+            return item
+          })
+          $vm.onShow = (config.onShow || noop).bind(this)
+          $vm.onClose = (config.onClose || noop).bind(this)
+          $vm.onBeforeDestroy = (config.onBeforeDestroy || noop).bind(this)
+          $vm.onDestroy = (config.onDestroy || noop).bind(this)
           document.body.appendChild($vm.$el)
-          $vm.isDialog = true          
+          $vm.isDialog = true
           const Content = Vue.extend(config.content || {
             template: '<div></div>'
           })
@@ -85,6 +90,27 @@ export default {
           $vm.$destroy()
           return this
         },
+        title(text) {
+          $vm.title = text
+          return this
+        },
+        width(value) {
+          $vm.width = value
+          return this
+        },
+        height(value) {
+          $vm.height = value
+          return this
+        },
+        button(array) {
+          $vm.button = array.map(item => {
+            if (item.callback) {
+              item.callback = item.callback.bind(this) 
+            }
+            return item
+          })
+          return this
+        },
         content(contentObj) {
           const $oldEl = $vm.content.$el
           $vm.content.$destroy()
@@ -96,6 +122,7 @@ export default {
           })
           return this
         },
+        $vm: $vm,
         open: $vm.isDialog
       }
     }
