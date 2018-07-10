@@ -1,6 +1,6 @@
 #
   >
-  vue - dialog 对话框插件
+  A lightweight dialog based on Vue 对话框插件
 
-## API和文档
+## API&Document
 详见https://leeseean.github.io/vue-dialog-API/
