@@ -105,7 +105,7 @@
       <p>1.安装</p>
       <pre>
           <code>
-              npm install --save-dev art-dialog-vue //插件文件在plugin目录下
+              npm install art-dialog-vue //插件文件在plugin目录下
           </code>
       </pre>
       <p>2.直接引入</p>
