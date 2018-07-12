@@ -57,7 +57,7 @@
         this.isDialog = false
       },
       clickCb(cb = () => {}) {
-        const flag = cb.call(this) //按钮回调函数返回 false 则不许关闭
+        const flag = cb() //按钮回调函数返回 false 则不许关闭
         if (flag === false) {
           return
         }

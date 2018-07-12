@@ -19,6 +19,21 @@
               <a href="#method-content">content(options)</a>
             </li>
             <li>
+              <a href="#method-title">title(text)</a>
+            </li>
+            <li>
+              <a href="#method-width">width(value)</a>
+            </li>
+            <li>
+              <a href="#method-height">height(value)</a>
+            </li>
+            <li>
+              <a href="#method-button">button(array)</a>
+            </li>
+            <li>
+              <a href="#prop-$vm">$vm</a>
+            </li>
+            <li>
               <a href="#prop-open">open</a>
             </li>
           </ul>
@@ -122,7 +137,7 @@
       <p>下面会就返回对象returnObj和config对象进行分别说明</p>
       <h2>returnObj</h2>
       <hr>
-      <p>returnObj是vue调用dialog方法后返回的对象，共有4个方法(show,close,destroy,content)和1个属性(open)</p>
+      <p>returnObj是vue调用dialog方法后返回的对象，共有8个方法(show,close,destroy,content...等)和2个属性($vm,open)</p>
       <h3 id="method-show">show([anchor])</h3>
       <p>弹出对话框，默认弹出在屏幕中央；anchor为dom元素，传入dom时对话框将根据设置的align值吸附在dom元素附近</p>
       <p>例子：</p>
@@ -200,6 +215,16 @@
                         });
                     </code>
                 </pre>
+      <h3 id="method-title">title(text)</h3>
+      <p>修改对话框标题</p>
+      <h3 id="method-width">width(value)</h3>
+      <p>修改对话框宽度</p>
+      <h3 id="method-height">height(value)</h3>
+      <p>修改对话框高度</p>
+      <h3 id="method-button">button(array)</h3>
+      <p>修改对话框按钮</p>
+      <h3 id="prop-$vm">$vm</h3>
+      <p>属性，获取当前弹窗vue实例</p>
       <h3 id="prop-open">open</h3>
       <p>属性（Boolean），判断对话框是否打开</p>
       <p>例子：</p>
@@ -219,7 +244,7 @@
                 </pre>
       <h2>config配置项</h2>
       <hr>
-      <p>注：config配置里面的所有方法中的this不指向returnObj，都指向弹窗vue实例</p>
+      <p>注：config配置里面的所有方法（onShow,onclose,button中的callback等）中的this指向returnObj</p>
       <table>
         <thead>
           <tr>
@@ -300,7 +325,7 @@
                                     }
                                 }
                             </code>
-                            <p>要获取content中data的数据可以使用$vm.content.color（$vm为弹窗实例）</p>
+                            <p>要获取content中data的数据可以使用returnObj.$vm.content.color（returnObj.$vm为弹窗实例）</p>
                         </pre>
               </div>
             </td>
@@ -320,7 +345,7 @@
                                     }
                                 }
                             </code>
-                            <p>要获取statusbar中data的数据可以使用$vm.statusbar.checked（$vm为弹窗实例）</p>
+                            <p>要获取statusbar中data的数据可以使用returnObj.$vm.statusbar.checked（returnObj.$vm为弹窗实例）</p>
                         </pre>
               </div>
             </td>
@@ -339,7 +364,7 @@
                                             value: '确定',
                                             callcack() {
                                                 //点击后的回调 
-                                                //注：this指向弹窗vue实例，
+                                                //注：this指向returnObj，
                                                 return false;//返回false 表示弹窗不关闭
                                             }
                                         }
@@ -352,22 +377,22 @@
           <tr id="config-onShow">
             <td>onShow</td>
             <td>Function</td>
-            <td>弹窗打开(执行returnObj.show())后的回调，回调中this指向弹窗vue实例</td>
+            <td>弹窗打开(执行returnObj.show())后的回调，回调中this指向returnObj</td>
           </tr>
           <tr id="config-onClose">
             <td>onClose</td>
             <td>Function</td>
-            <td>弹窗打开(执行returnObj.close())后的回调，回调中this指向弹窗vue实例</td>
+            <td>弹窗打开(执行returnObj.close())后的回调，回调中this指向returnObj</td>
           </tr>
           <tr id="config-onBeforeDestroy">
             <td>onBeforeDestroy</td>
             <td>Function</td>
-            <td>弹窗实例钩子函数beforeDestroy中的回调，回调中this指向弹窗vue实例</td>
+            <td>弹窗实例钩子函数beforeDestroy中的回调，回调中this指向returnObj</td>
           </tr>
           <tr id="config-onDestroy">
             <td>onDestroy</td>
             <td>Function</td>
-            <td>弹窗实例钩子函数destroyed中的回调，回调中this指向弹窗vue实例</td>
+            <td>弹窗实例钩子函数destroyed中的回调，回调中this指向returnObj</td>
           </tr>
         </tbody>
       </table>
@@ -381,8 +406,8 @@
       return {
         showConfigNav: true,
         showReturnObjNav: true,
-        text: 'text',
-        color: 'color',
+        text: '{{text}}',
+        color: '{{color}}',
         toTopFlag: false
       }
     },
