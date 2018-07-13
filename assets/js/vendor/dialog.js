@@ -2,7 +2,9 @@ import VueDialog from '../../../src/components/vue-dialog'
 import {
   noop,
   setStyle,
-  offsetDis
+  offsetDis,
+  getViewPortHeight,
+  getScrollTop
 } from './utils'
 
 let $vm
@@ -37,6 +39,15 @@ export default {
           $vm.onBeforeDestroy = (config.onBeforeDestroy || noop).bind(this)
           $vm.onDestroy = (config.onDestroy || noop).bind(this)
           document.body.appendChild($vm.$el)
+          if ($vm.fixed) {
+            setStyle($vm.$refs.dialogWrapper, {
+              top: '50%',
+            })
+          } else {
+            setStyle($vm.$refs.dialogWrapper, {
+              top: `${getScrollTop() + getViewPortHeight() / 2}px`,
+            })
+          }
           $vm.isDialog = true
           const Content = Vue.extend(config.content || {
             template: '<div></div>'
