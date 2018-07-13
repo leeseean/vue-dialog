@@ -382,7 +382,7 @@
           <tr id="config-onClose">
             <td>onClose</td>
             <td>Function</td>
-            <td>弹窗打开(执行returnObj.close())后的回调，回调中this指向returnObj</td>
+            <td>弹窗关闭(执行returnObj.close())后的回调，回调中this指向returnObj</td>
           </tr>
           <tr id="config-onBeforeDestroy">
             <td>onBeforeDestroy</td>
